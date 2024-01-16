@@ -1,0 +1,120 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+>
+    <TableSelectDialog
+        noDataText="No Service Lines Found"
+        title="Select Service Lines"
+        liveChange="onCostCenterSearchValue"
+        confirm="_costcenterHandleValueHelpClose"
+        cancel="_costcenterHandleValueHelpClose"
+        items="{costCentre>/results}"
+        id="ccValueHelpTable"
+    >
+        <ColumnListItem vAlign="Middle">
+            <cells>
+                <Text text="{costCentre>costcenterExternalObjectID}" />
+                <Text text="{costCentre>externalCode}" />
+                <Text text="{costCentre>description}" />
+                <Text text="{costCentre>legalEntity}" />
+            </cells>
+        </ColumnListItem>
+        <columns>
+            <Column
+                minScreenWidth="Tablet"
+                demandPopin="true"
+            >
+                <header>
+                    <Text text="ID" />
+                </header>
+            </Column>
+            <Column
+                minScreenWidth="Tablet"
+                demandPopin="true"
+            >
+                <header>
+                    <Text text="Name" />
+                </header>
+            </Column>
+            <Column
+                minScreenWidth="Tablet"
+                demandPopin="true"
+            >
+                <header>
+                    <Text text="Description" />
+                </header>
+            </Column>
+            <Column
+                minScreenWidth="Tablet"
+                demandPopin="true"
+            >
+                <header>
+                    <Text text="Company Code" />
+                </header>
+            </Column>
+        </columns>
+    </TableSelectDialog>
+
+    <!-- <Dialog
+        id="ccdialogID1"
+        class="sapUiContentPadding"
+        afterClose="dialogAfterclose"
+    >
+        <content>
+            <Table
+                id="ccValueHelpTable"
+                items="{/results}"
+                mode="SingleSelectLeft"
+            >
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <Title text="Job" />
+                        <ToolbarSpacer />
+                        <SearchField
+                            id="searchField"
+                            width="auto"
+                            search=".onFilterJob"
+                        />
+                    </OverflowToolbar>
+                </headerToolbar>
+                <columns>
+                    <Column>
+                        <Text text="CostCenter ID" />
+                    </Column>
+                    <Column>
+                        <Text text="CostCenter Name" />
+                    </Column>
+                    <Column>
+                        <Text text="Description" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <Text text="{costcenterExternalObjectID}" />
+                            <Text text="{externalCode}" />
+                            <Text text="{description}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+        <footer>
+            <OverflowToolbar>
+                <ToolbarSpacer />
+                <Button
+                    type="Emphasized"
+                    text="Ok"
+                    press="ccDialogOk"
+                />
+                <Button
+                    type="Negative"
+                    text="Close"
+                    press="ccDialogClose"
+                />
+            </OverflowToolbar>
+        </footer>
+    </Dialog> -->
+</core:FragmentDefinition>

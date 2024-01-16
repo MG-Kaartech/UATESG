@@ -1,0 +1,92 @@
+_schema-version: "3.2"
+ID: esgdriverkiosk_prd
+version: 0.0.1
+modules:
+- name: esgdriverkiosk_prd-destination-content
+  type: com.sap.application.content
+  requires:
+  - name: esgdriverkiosk_prd-destination-service
+    parameters:
+      content-target: true
+  - name: esgdriverkiosk_prd_html_repo_host
+    parameters:
+      service-key:
+        name: esgdriverkiosk_prd_html_repo_host-key
+  - name: uaa_esgdriverkiosk_prd
+    parameters:
+      service-key:
+        name: uaa_esgdriverkiosk_prd-key
+  parameters:
+    content:
+      instance:
+        destinations:
+        - Name: esgdriverkiosk_prd_esgdriverkiosk_prd_html_repo_host
+          ServiceInstanceName: esgdriverkiosk_prd-html5-app-host-service
+          ServiceKeyName: esgdriverkiosk_prd_html_repo_host-key
+          sap.cloud.service: esgdriverkiosk_prd
+        - Authentication: OAuth2UserTokenExchange
+          Name: esgdriverkiosk_prd_uaa_esgdriverkiosk_prd
+          ServiceInstanceName: esgdriverkiosk_prd-xsuaa-service
+          ServiceKeyName: uaa_esgdriverkiosk_prd-key
+          sap.cloud.service: esgdriverkiosk_prd
+        existing_destinations_policy: ignore
+  build-parameters:
+    no-source: true
+- name: esgdriverkiosk_prd-app-content
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: esgdriverkiosk_prd_html_repo_host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - commgcesgdriverkioskprdesgkioskuiprd.zip
+      name: commgcesgdriverkioskprdesgkioskuiprd
+      target-path: resources/
+- name: commgcesgdriverkioskprdesgkioskuiprd
+  type: html5
+  path: esgkioskui_prd
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+resources:
+- name: esgdriverkiosk_prd-destination-service
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: true
+      init_data:
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          existing_destinations_policy: update
+      version: 1.0.0
+    service: destination
+    service-name: esgdriverkiosk_prd-destination-service
+    service-plan: lite
+- name: esgdriverkiosk_prd_html_repo_host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: esgdriverkiosk_prd-html5-app-host-service
+    service-plan: app-host
+- name: uaa_esgdriverkiosk_prd
+  type: org.cloudfoundry.managed-service
+  parameters:
+    path: ./xs-security.json
+    service: xsuaa
+    service-name: esgdriverkiosk_prd-xsuaa-service
+    service-plan: application
+parameters:
+  deploy_mode: html5-repo

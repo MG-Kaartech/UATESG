@@ -1,0 +1,279 @@
+<mvc:View
+    controllerName="com.mgc.esgdriverkioskprd.esgkioskuiprd.controller.main"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:ndc="sap.ndc"
+>
+    <Page id="mainPage">
+        <customHeader>
+            <OverflowToolbar>
+                <content>
+                    <ToolbarSpacer />
+                    <Title text="ESG Driver" />
+                    <ToolbarSpacer />
+                </content>
+            </OverflowToolbar>
+        </customHeader>
+        <content>
+            <f:SimpleForm
+                id="SimpleFormChange354"
+                editable="true"
+                layout="ResponsiveGridLayout"
+                labelSpanXL="5"
+                labelSpanL="5"
+                labelSpanM="5"
+                labelSpanS="12"
+                adjustLabelSpan="false"
+                emptySpanXL="4"
+                emptySpanL="4"
+                emptySpanM="4"
+                emptySpanS="0"
+                columnsXL="1"
+                columnsL="1"
+                columnsM="1"
+                singleContainerFullSize="false"
+            >
+                <f:content>
+                    <Label
+                        text="Date"
+                        design="Bold"
+                    />
+                    <!-- <DatePicker
+                        id="idDatePicker"
+                        value="{
+                           path: 'view>/dDefaultDate' ,
+                           type: 'sap.ui.model.type.Date'
+                                   }"
+                        valueFormat="yyyy-MM-dd"
+                        
+                        enabled="false"
+                    /> -->
+                    <Input
+                        id="idDatePicker"
+                        editable="false"
+                    />
+                    <Label
+                        text="Employee ID"
+                        design="Bold"
+                    />
+                    <Input
+                        id="empId"
+                        editable="false"
+                    />
+                    <Button
+                        id="scanBtn"
+                        icon="sap-icon://qr-code"
+                        text="Scan"
+                        type="Emphasized"
+                        tooltip="Scan"
+                        press="openScan"
+                    />
+                    <Label
+                        text="Employee Name"
+                        design="Bold"
+                    />
+                    <Input
+                        id="empName"
+                        editable="false"
+                    />
+                    <!-- <Text text = "" /> -->
+                    <Label
+                        text="Position"
+                        design="Bold"
+                    />
+                    <Input
+                        id="position"
+                        editable="false"
+                    />
+                    <Label
+                        text="Position Manager"
+                        design="Bold"
+                    />
+                    <Input
+                        id="posman"
+                        editable="false"
+                    />
+                    <!-- <Text text = "" /> -->
+                    <!-- <Text text = "" /> -->
+                    <!-- <Label
+                        text="Cost Center"   
+                        design="Bold"
+                    /> -->
+                    <!-- <Input
+                        id="costCenter"
+                        value="CC-01"
+                        editable="false"
+                    /> -->
+                </f:content>
+            </f:SimpleForm>
+            <Panel id="workDetail">
+                <content>
+                    <Table
+                        id="workDetailTab"
+                        autoPopinMode="true"
+                        items="{/}"
+                    >
+                        <headerToolbar>
+                            <OverflowToolbar>
+                                <Title text="Work Details" />
+                                <ToolbarSpacer />
+                                <!-- <Button
+                                    icon="sap-icon://add"
+                                    text="Add Work"
+                                    type="Accept"
+                                    press="onAddWork"
+                                />
+                                <Button
+                                    icon="sap-icon://delete"
+                                    text="Delete Work"
+                                    type="Reject"
+                                    press="deleteWorkRow"
+                                /> -->
+                                <Label text="Total Hours : " />
+                                <Button
+                                    id="totHours"
+                                    text="00:00 Hrs"
+                                    type="Transparent"
+                                />
+                                <!-- <Text  id="totalHours" text="00:00 Hrs"/> -->
+                            </OverflowToolbar>
+                        </headerToolbar>
+                        <columns>
+                            <Column width="33em">
+                                <Text text="Service Line" />
+                            </Column>
+                            <Column width="9em">
+                                <Text text="" />
+                            </Column>
+                            <Column>
+                                <Text text="Started" />
+                            </Column>
+                            <Column width="9em">
+                                <Text text="" />
+                            </Column>
+                            <Column>
+                                <Text text="Finished" />
+                            </Column>
+                            <Column>
+                                <Text text="Hours" />
+                            </Column>
+                        </columns>
+                        <items>
+                            <ColumnListItem>
+                                <cells>
+                                    <Input
+                                        value="{costcenter}"
+                                        editable="{ccedit}"
+                                        showValueHelp="true"
+                                        valueHelpRequest="ccHelp"
+                                        showClearIcon="true"
+                                        valueHelpOnly="true"
+                                    />
+                                    <Button
+                                        icon="sap-icon://fob-watch"
+                                        text="Punch In "
+                                        enabled="{punchin}"
+                                        type="{btn1type}"
+                                        tooltip="Punch In Time"
+                                        press="punchInTime"
+                                    />
+                                    <Input
+                                        value="{punchintime}"
+                                        editable="false"
+                                    />
+                                    <Button
+                                        icon="sap-icon://fob-watch"
+                                        text="Punch Out "
+                                        enabled="{punchout}"
+                                        type="{btn2type}"
+                                        tooltip="Punch Out Time"
+                                        press="punchOutTime"
+                                    />
+                                    <Input
+                                        value="{punchouttime}"
+                                        editable="false"
+                                    />
+                                    <Input
+                                        class="inputNonEditable"
+                                        value="{actuals}"
+                                        editable="false"
+                                    />
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+                </content>
+            </Panel>
+            <!-- <Panel id="leaveExp">
+                <content>
+                    <Table
+                        id="leaveExpTab"
+                        autoPopinMode="true"
+                        mode="MultiSelect"
+                    >
+                        <headerToolbar>
+                            <OverflowToolbar>
+                                <Title text="Leave Exception" />
+                                <ToolbarSpacer />
+                                <Button
+                                    icon="sap-icon://add"
+                                    text="Add Leave"
+                                    type="Accept"
+                                    press="onAddLeave"
+                                />
+                                <Button
+                                    icon="sap-icon://delete"
+                                    text="Delete Leave"
+                                    type="Reject"
+                                    press="deleteLeaveRow"
+                                />
+                            </OverflowToolbar>
+                        </headerToolbar>
+                        <columns>
+                            <Column width="25em">
+                                <Text text="Pay Code" />
+                            </Column>
+                            <Column>
+                                <Text text="Cost Center" />
+                            </Column>
+                            <Column>
+                                <Text text="Hours" />
+                            </Column>
+                        </columns>
+                    </Table>
+                </content>
+            </Panel> -->
+        </content>
+        <footer>
+            <OverflowToolbar>
+                <!-- <Button
+                    icon="sap-icon://save"
+                    type="Emphasized"
+                    text=" Save "
+                    press="onCreateSubmit"
+                />
+                <Button
+                    type="Success"
+                    text="Submit"
+                    press="onCreateSubmit"
+                    class="sapUiSmallMarginBeginEnd"
+                /> -->
+                <Label
+                    text="Digital Clock"
+                    design="Bold"
+                    id="digiClk"
+                />
+                <ToolbarSpacer />
+                <Button
+                    type="Negative"
+                    text="Cancel"
+                    press="onCancel"
+                />
+            </OverflowToolbar>
+        </footer>
+    </Page>
+</mvc:View>
